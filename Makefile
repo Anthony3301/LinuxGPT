@@ -3,11 +3,11 @@ CXXFLAGS = -Wall -g -MMD -I./include # use -MMD to generate dependencies
 SOURCES = $(wildcard src/*.cc)   # list of all .cc files in the current directory
 OBJECTS = ${SOURCES:src/%.cc=build/%.o}  # .o files depend upon .cc files with same names
 DEPENDS = ${OBJECTS:.o=.d}   # .d file is list of dependencies for corresponding .cc file
-EXEC = linuxGPT# add exec name here
+EXEC= linuxGPT
 
 # First target in the makefile is the default target.
 $(EXEC): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(EXEC) $(LIBFLAGS)
+	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(EXEC)  $(LIBFLAGS)
 
 build/%.o: src/%.cc 
 	$(CXX) -c -o $@ $< $(CXXFLAGS) $(LIBFLAGS)
@@ -17,3 +17,4 @@ build/%.o: src/%.cc
 .PHONY: clean tests
 clean:
 	rm  -f $(OBJECTS) $(DEPENDS) $(EXEC)
+

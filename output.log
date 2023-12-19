@@ -1,0 +1,33 @@
+12:24:20 [INFO] hello there
+12:56:27 [INFO] Welcome to linuxGPT
+13:20:39 [ERROR] config file does not exist.
+13:20:39 [INFO] Welcome to linuxGPT
+13:21:11 [INFO] Welcome to linuxGPT
+13:21:11 [ERROR] config file does not exist.
+13:38:39 [INFO] Welcome to linuxGPT
+13:38:39 [ERROR] Could not find config.txt.
+13:43:40 [INFO] Welcome to linuxGPT
+13:43:40 [ERROR] Could not find config.txt.
+13:43:40 [INFO] Enter API key:
+13:43:46 [INFO] Successfully read API key from config.txt!
+13:43:46 [INFO] out of loop
+13:45:03 [INFO] Welcome to linuxGPT
+13:45:03 [INFO] Successfully read API key from config.txt!
+13:45:03 [INFO] out of loop
+13:45:22 [INFO] Welcome to linuxGPT
+13:45:22 [ERROR] Could not find config.txt.
+13:45:39 [INFO] Successfully read API key from config.txt!
+13:45:39 [INFO] out of loop
+13:46:20 [INFO] Welcome to linuxGPT
+13:46:20 [INFO] Successfully read API key from config.txt!
+13:46:20 [INFO] out of loop
+13:50:12 [INFO] Welcome to linuxGPT
+13:50:12 [ERROR] Could not find config.txt.
+13:50:12 [INFO] Enter API key:
+13:50:24 [INFO] Successfully read API key from config.txt!
+13:50:24 [INFO] out of loop
+13:50:55 [INFO] Welcome to linuxGPT
+13:50:55 [WARNING] Could not read API key from config.txt.
+13:50:55 [INFO] Enter API key:
+13:51:01 [INFO] Successfully read API key from config.txt!
+13:51:01 [INFO] out of loop

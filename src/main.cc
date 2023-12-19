@@ -1,6 +1,7 @@
 #include <iostream>
 #include "logger.h"
 #include "controller.h"
+#include "directory.h"
 using namespace std;
 
 // global logger
@@ -24,5 +25,12 @@ int main() {
 
         // write the key and let the loop run again
         controller.writeAPIkey(key);
+    }
+
+    std::string command;
+    logger.info("Enter your prompt on a single line:");
+
+    while(std::getline(cin, command)) {
+        // do api access here
     }
 }

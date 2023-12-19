@@ -1,3 +1,6 @@
 /build
 /linuxGPT
 /config.txt
+/.vscode
+/output.log
+/output.txt

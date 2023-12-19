@@ -1,5 +1,6 @@
 #include "controller.h"
 #include "logger.h"
+#include "directory.h"
 #include <fstream>
 
 // basic ctor
@@ -70,8 +71,30 @@ bool Controller::init() {
 }
 
 
+// method that creates the request string
+std::string Controller::getFinalRequestString() {
+    std::string tmp;
+
+    tmp += "User request is:\n";
+    tmp += pastRequest;
+    tmp += "\nDirectory structure is:\n";
+
+    // read from output.txt file and add the structure line by line
+    std::ifstream tree("output.txt");
+    std::string row;
+    
+    while (std::getline(tree, row)) {
+        tmp += row + "\n";
+    }
+
+    return tmp;
+}
 
 
 // getters and setters
 void Controller::setApiKey(std::string s) {apiKey = s;}
+
+
+void Controller::setPastRequest(std::string s) {pastRequest = s;}
+std::string Controller::getPastRequest() {return pastRequest;}
 

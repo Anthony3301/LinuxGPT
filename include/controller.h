@@ -24,13 +24,20 @@ class Controller {
         fileState getAPIkey();
         fileState writeAPIkey(std::string s);
 
-        // function that inits the api key from file
+        // method that inits the api key from file
         bool init();
 
         ~Controller() {}
 
+        // method that creates the request string
+        std::string getFinalRequestString();
+
         // getters and setters
         void setApiKey(std::string s);
+        
+        void setPastRequest(std::string s);
+        std::string getPastRequest();
+
 };
 
 

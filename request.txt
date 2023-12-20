@@ -1,0 +1,13 @@
+curl https://api.openai.com/v1/chat/completions   -H "Content-Type: application/json"   -H "Authorization: Bearer $OPENAI_API_KEY"   -d '{
+    "model": "gpt-4",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a assistant for linux commands, you just provide the code snippet, no other output"
+      },
+      {
+        "role": "user",
+        "content": "$USER_PROMPT"
+      }
+    ]
+  }'

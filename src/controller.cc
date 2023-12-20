@@ -90,6 +90,38 @@ std::string Controller::getFinalRequestString() {
     return tmp;
 }
 
+// method that creates https request string
+std::string Controller::getHttpsRequestString() {
+    // read from the request.txt file
+    std::string total;
+    std::ifstream request("request.txt");
+    std::string row;
+
+    while (std::getline(request, row)) {
+        total += row + "\n";
+    }
+
+    // find and replace the open ai access key 
+    std::string key = "$OPENAI_API_KEY";
+    std::string prompt = "$USER_PROMPT";
+    size_t startAccessPos = total.find(key);
+
+    if (startAccessPos != std::string::npos) {
+        total.replace(startAccessPos, key.length(), this->apiKey);
+    }
+
+
+    // find and replace user prompt
+    size_t startPromptPos = total.find(prompt);
+
+    if (startPromptPos != std::string::npos) {
+        total.replace(startAccessPos, key.length(), this->getFinalRequestString());
+    }
+
+    return total;
+}
+
+
 
 // getters and setters
 void Controller::setApiKey(std::string s) {apiKey = s;}

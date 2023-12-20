@@ -32,6 +32,9 @@ class Controller {
         // method that creates the request string
         std::string getFinalRequestString();
 
+        // method that creates https request string
+        std::string getHttpsRequestString();
+
         // getters and setters
         void setApiKey(std::string s);
         

@@ -7,7 +7,7 @@ EXEC= linuxGPT
 
 # First target in the makefile is the default target.
 $(EXEC): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(EXEC)  $(LIBFLAGS)
+	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(EXEC)  -lcurl $(LIBFLAGS)
 
 build/%.o: src/%.cc 
 	$(CXX) -c -o $@ $< $(CXXFLAGS) $(LIBFLAGS)

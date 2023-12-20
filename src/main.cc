@@ -2,6 +2,7 @@
 #include "logger.h"
 #include "controller.h"
 #include "directory.h"
+#include "api.h"
 using namespace std;
 
 // global logger
@@ -17,6 +18,9 @@ int main() {
 
     // create the directory object
     Directory directory;
+
+    // create the API object
+    API api;
 
     // initalization loop
     while (true) {
@@ -41,5 +45,6 @@ int main() {
         logger.info(controller.getFinalRequestString());
 
         // do api access here
+        api.access();
     }
 }

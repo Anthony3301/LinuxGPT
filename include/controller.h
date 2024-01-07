@@ -21,7 +21,7 @@ class Controller {
         Controller(std::string fp);
 
         // methods to read/write from config file
-        fileState getAPIkey();
+        fileState readAPIkey();
         fileState writeAPIkey(std::string s);
 
         // method that inits the api key from file
@@ -37,6 +37,7 @@ class Controller {
 
         // getters and setters
         void setApiKey(std::string s);
+        std::string getApiKey();
         
         void setPastRequest(std::string s);
         std::string getPastRequest();

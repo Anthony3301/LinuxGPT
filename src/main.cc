@@ -42,9 +42,10 @@ int main() {
     while(std::getline(cin, command)) {
         controller.setPastRequest(command);
         directory.getTreeDirectory(MAX_DEPTH);
-        logger.info(controller.getFinalRequestString());
 
         // do api access here
-        api.access();
+        api.setHttpsRequest(controller.getHttpsRequestString());
+        api.access(controller.getApiKey(), controller.getFinalRequestString());
+        api.parseResult();
     }
 }

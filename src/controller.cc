@@ -7,7 +7,7 @@
 Controller::Controller(std::string fp): configFilePath{fp} {}
 
 // reads api key from config file
-fileState Controller::getAPIkey() {
+fileState Controller::readAPIkey() {
     // config file where the api key is stored
     std::ifstream configFile(configFilePath);
 
@@ -55,7 +55,7 @@ bool Controller::init() {
     std::string line;
 
     // attempt to get the api key
-    fileState readOutcome = this->getAPIkey();
+    fileState readOutcome = this->readAPIkey();
 
     // basic init
     if (readOutcome == fileState::SUCCESS) {
@@ -100,22 +100,13 @@ std::string Controller::getHttpsRequestString() {
     while (std::getline(request, row)) {
         total += row + "\n";
     }
-
-    // find and replace the open ai access key 
-    std::string key = "$OPENAI_API_KEY";
-    std::string prompt = "$USER_PROMPT";
-    size_t startAccessPos = total.find(key);
-
-    if (startAccessPos != std::string::npos) {
-        total.replace(startAccessPos, key.length(), this->apiKey);
-    }
-
+    std::string prompt = "$USER_REQUEST";
 
     // find and replace user prompt
     size_t startPromptPos = total.find(prompt);
 
     if (startPromptPos != std::string::npos) {
-        total.replace(startAccessPos, key.length(), this->getFinalRequestString());
+        total.replace(startPromptPos, prompt.length(), this->getFinalRequestString());
     }
 
     return total;
@@ -125,6 +116,8 @@ std::string Controller::getHttpsRequestString() {
 
 // getters and setters
 void Controller::setApiKey(std::string s) {apiKey = s;}
+
+std::string Controller::getApiKey() {return this->apiKey;}
 
 
 void Controller::setPastRequest(std::string s) {pastRequest = s;}

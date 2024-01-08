@@ -40,7 +40,7 @@ int main() {
     std::string command;
 
     while(true) {
-        logger.info("Enter your prompt on a single line:");
+        logger.info("Enter your prompt on a single line or exit:");
         
         
         if (!std::getline(cin, command) || command == "exit") {
@@ -88,5 +88,7 @@ int main() {
             }
             counter++;
         }
+
+        logger.info("All commands complete.");
     }
 }

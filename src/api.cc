@@ -42,9 +42,6 @@ void API::access(std::string apiKey, std::string prompt) {
     CURLcode res;
     std::string readBuffer;
 
-    std::cout << "the prompt is " << std::endl;
-    std::cout << prompt << std::endl;
-
     curl = curl_easy_init();
     if (curl) {
 
@@ -106,19 +103,19 @@ std::string API::parseResult() {
         // need the content which is under choices->message->content (just choose first response for now)
         std::string res = jsonString["choices"][0]["message"]["content"];
 
-        // content comes with ```bash at the front and ``` at the end, need to trim that off
-        // remove the ```bash first
+        // content comes with ```bash at the front and ``` at the end, need the content between the two
+
+        // find the ```bash first
         size_t startPos = res.find("```bash");
-        if (startPos != std::string::npos) {
-            res.erase(startPos, 7);
-        }
 
-        // remove the last ``` (extra check to see if it last)
-        startPos = res.find("```");
-        if (startPos != std::string::npos && startPos + 3 == res.size()) {
-            res.erase(startPos, 3);
-        }
+        // find the ``` after the first occurence
+        size_t endPos = res.find("```", startPos + 7);
 
+        // substring between these two is the needed result
+        res = res.substr(startPos+7, endPos - startPos - 6);
+
+
+    
         logger.warning(res);
 
         return res;

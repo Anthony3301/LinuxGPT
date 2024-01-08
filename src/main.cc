@@ -3,6 +3,7 @@
 #include "controller.h"
 #include "directory.h"
 #include "api.h"
+#include <limits>
 using namespace std;
 
 // global logger
@@ -38,8 +39,14 @@ int main() {
 
     std::string command;
 
-    while(std::getline(cin, command)) {
+    while(true) {
         logger.info("Enter your prompt on a single line:");
+        
+        
+        if (!std::getline(cin, command) || command == "exit") {
+            break;
+        }
+
         controller.setPastRequest(command);
         directory.getTreeDirectory(MAX_DEPTH);
 
@@ -51,6 +58,7 @@ int main() {
         // display command to users
         std::istringstream iss{result};
         std::string currLine;
+
         int counter = -1;
         while(std::getline(iss, currLine)) {
             if (counter != -1) {
@@ -59,7 +67,9 @@ int main() {
                 // prompt user to see to run command or not
                 std::string usrInput;
                 logger.info("Run command ? (y/n):");
-                cin >> usrInput;
+                std::cin >> usrInput;
+
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
                 while (true) {
                     if (usrInput == "y" || usrInput == "Y" || usrInput == "yes" || usrInput == "Yes" || usrInput == "YES") {

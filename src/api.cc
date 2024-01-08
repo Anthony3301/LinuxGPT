@@ -42,6 +42,9 @@ void API::access(std::string apiKey, std::string prompt) {
     CURLcode res;
     std::string readBuffer;
 
+    std::cout << "the prompt is " << std::endl;
+    std::cout << prompt << std::endl;
+
     curl = curl_easy_init();
     if (curl) {
 
@@ -98,6 +101,8 @@ std::string API::parseResult() {
     try {
         nlohmann::json jsonString = nlohmann::json::parse(this->response);
 
+        //std::cout << jsonString << std::endl;
+
         // need the content which is under choices->message->content (just choose first response for now)
         std::string res = jsonString["choices"][0]["message"]["content"];
 
@@ -114,7 +119,7 @@ std::string API::parseResult() {
             res.erase(startPos, 3);
         }
 
-        //logger.info(res);
+        logger.warning(res);
 
         return res;
     } catch (std::exception &ex) {

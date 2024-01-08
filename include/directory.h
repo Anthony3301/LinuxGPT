@@ -15,9 +15,6 @@ class Directory {
         "/dev/null", "wget", "mkfs.ext3", "crontab -r", "<em>" 
     };
 
-    // private method to run a command in terminal
-    int runCommand(std::string cm);
-
 
     public:
         // ctor
@@ -31,6 +28,8 @@ class Directory {
 
         // gets the directory structure (up to a specific depth)
         int getTreeDirectory(size_t depth);
+
+        int runCommand(std::string cm);
 };
 
 #endif

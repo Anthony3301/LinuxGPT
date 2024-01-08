@@ -37,15 +37,46 @@ int main() {
     }
 
     std::string command;
-    logger.info("Enter your prompt on a single line:");
 
     while(std::getline(cin, command)) {
+        logger.info("Enter your prompt on a single line:");
         controller.setPastRequest(command);
         directory.getTreeDirectory(MAX_DEPTH);
 
         // do api access here
         api.setHttpsRequest(controller.getHttpsRequestString());
         api.access(controller.getApiKey(), controller.getFinalRequestString());
-        api.parseResult();
+        std::string result = api.parseResult();
+
+        // display command to users
+        std::istringstream iss{result};
+        std::string currLine;
+        int counter = -1;
+        while(std::getline(iss, currLine)) {
+            if (counter != -1) {
+                logger.info(std::to_string(counter) + ": " + currLine);
+
+                // prompt user to see to run command or not
+                std::string usrInput;
+                logger.info("Run command ? (y/n):");
+                cin >> usrInput;
+
+                while (true) {
+                    if (usrInput == "y" || usrInput == "Y" || usrInput == "yes" || usrInput == "Yes" || usrInput == "YES") {
+                        logger.info("Running command...");
+                        directory.runCommand(currLine);
+                        logger.info("Success");
+                        break;
+                    } else if (usrInput == "n" || usrInput == "N" || usrInput == "no" || usrInput == "No" || usrInput == "NO") {
+                        logger.info("Skipping command");
+                        break;
+                    } else {
+                        logger.error("Urecognized command, input again (y/n)");
+                    }
+                }
+
+            }
+            counter++;
+        }
     }
 }

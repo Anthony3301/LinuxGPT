@@ -114,7 +114,7 @@ std::string API::parseResult() {
             res.erase(startPos, 3);
         }
 
-        logger.info(res);
+        //logger.info(res);
 
         return res;
     } catch (std::exception &ex) {

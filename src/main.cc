@@ -59,10 +59,15 @@ int main() {
         std::istringstream iss{result};
         std::string currLine;
 
-        int counter = -1;
+        int counter = 0;
         while(std::getline(iss, currLine)) {
             if (counter != -1) {
                 logger.info(std::to_string(counter) + ": " + currLine);
+
+                // check if the command has any potentially dangerous commands in it
+                if (directory.isOkCommand(currLine) == commandSafety::DANGER) {
+                    logger.warning("This command contains a potentially dangerous action!");
+                }
 
                 // prompt user to see to run command or not
                 std::string usrInput;
@@ -72,6 +77,7 @@ int main() {
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
                 while (true) {
+
                     if (usrInput == "y" || usrInput == "Y" || usrInput == "yes" || usrInput == "Yes" || usrInput == "YES") {
                         logger.info("Running command...");
                         directory.runCommand(currLine);

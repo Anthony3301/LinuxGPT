@@ -56,7 +56,7 @@ void API::access(std::string apiKey, std::string prompt) {
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
 
         // Set the POST data
-        std::string postData = "{ \"model\": \"gpt-4\", \"messages\": [ { \"role\": \"system\", \"content\": \"You are an assistant for Linux commands, you just provide the code snippet, no other output, do not wrap the code in markdown formatter\" }, { \"role\": \"user\", \"content\": \"(input_here)\" } ] }";
+        std::string postData = "{ \"model\": \"gpt-4\", \"messages\": [ { \"role\": \"system\", \"content\": \"You are an assistant for Linux commands, you just provide the code snippet, no other output, do not wrap the code in markdown formatter, if request does not make sense, output FAIL\" }, { \"role\": \"user\", \"content\": \"(input_here)\" } ] }";
         size_t startPromptPos = postData.find("(input_here)");
         if (startPromptPos != std::string::npos) {
             std::string normalizedInput = normalizeString(prompt);
@@ -77,8 +77,8 @@ void API::access(std::string apiKey, std::string prompt) {
         curl_easy_cleanup(curl);
 
         // Output the response
-        if (res == CURLE_OK) {
-            std::cout << readBuffer << std::endl;
+        if (res == CURLE_OK && readBuffer.find("FAIL") == std::string::npos) {
+            //std::cout << readBuffer << std::endl;
 
             // store the response string
             response = readBuffer;
@@ -116,7 +116,7 @@ std::string API::parseResult() {
             res = res.substr(startPos+7, endPos - startPos - 6);
         } // otherwise just keep the stuff as needed
     
-        logger.warning(res);
+        //logger.warning(res);
 
         return res;
     } catch (std::exception &ex) {
